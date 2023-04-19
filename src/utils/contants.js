@@ -30,3 +30,4 @@ export const CARS = {
     price: "Price should be greather than 1",
   },
 };
+export const PER_PAGE = 3
