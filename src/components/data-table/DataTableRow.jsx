@@ -1,0 +1,39 @@
+import React, { useContext } from "react";
+import TableCell from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
+import { IconButton } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { ModalContext } from "../../context";
+import { useDispatch } from "react-redux";
+import { deleteItem, setItem } from "../../store/carSlice";
+
+export const DataTableRow = ({ row }) => {
+  const { setOpen } = useContext(ModalContext);
+  const dispatch = useDispatch();
+
+  const handleEdit = (item) => {
+    dispatch(setItem(item));
+    setOpen(true);
+  };
+
+  const handleDelete = (item) => {
+    dispatch(deleteItem(item.uid));
+  };
+
+  return (
+    <TableRow key={row.uid}>
+      <TableCell>{row.name}</TableCell>
+      <TableCell align="right">{row.price}</TableCell>
+      <TableCell align="right">{row.country}</TableCell>
+      <TableCell align="right">
+        <IconButton onClick={() => handleEdit(row)}>
+          <EditIcon />
+        </IconButton>
+        <IconButton onClick={() => handleDelete(row)}>
+          <DeleteIcon />
+        </IconButton>
+      </TableCell>
+    </TableRow>
+  );
+};

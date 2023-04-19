@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ModalContext, ThemeContext } from "./context";
+import { CarList } from "./pages/CarList";
 
-function App() {
+export default function App() {
+  // To detect default browser's theme
+  const isBrowserDefaultDark = () =>
+    window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  const [open, setOpen] = useState(false);
+  const [theme, setTheme] = useState(isBrowserDefaultDark() ? "dark" : "light");
+
+  const AppRouter = () => (
+    <BrowserRouter>
+      <Routes>
+        <Route exact path="/" element={<CarList />} />
+      </Routes>
+    </BrowserRouter>
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // Instead of using custom theme implementation
+    // we can use native ThemeProvider from "@material-tailwind/react";
+    // it's just an example of manual approach to show how react context uses
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      <ModalContext.Provider value={{ open, setOpen }}>
+        <div className={`theme-${theme}`}>
+          <AppRouter />
+        </div>
+      </ModalContext.Provider>
+    </ThemeContext.Provider>
   );
 }
-
-export default App;
