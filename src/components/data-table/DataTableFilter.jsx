@@ -2,6 +2,7 @@ import { Input } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { filterItemsByName } from "../../store/carSlice";
+import { setOffset } from "../../store/paginationSlice";
 
 export const DataTableFilter = () => {
   const [query, setQuery] = useState("");
@@ -12,6 +13,7 @@ export const DataTableFilter = () => {
 
     setQuery(value);
     dispatch(filterItemsByName(value));
+    dispatch(setOffset(0));
   };
 
   return (

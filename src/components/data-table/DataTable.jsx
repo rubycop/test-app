@@ -1,22 +1,24 @@
 import { Table, TableBody, TableContainer, Paper } from "@mui/material";
 import { DataTableHeader } from "./DataTableHeader";
 import { DataTableRow } from "./DataTableRow";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import ReactPaginate from "react-paginate";
 import { PER_PAGE } from "../../utils/contants";
+import { setOffset } from "../../store/paginationSlice";
 
 export const DataTable = () => {
   const carsData = useSelector((state) => state.car.cars);
+  const offset = useSelector((state) => state.pagination.offset);
+  const dispatch = useDispatch();
 
-  const [itemOffset, setItemOffset] = useState(0);
-  const endOffset = itemOffset + PER_PAGE;
-  const currentItems = carsData.slice(itemOffset, endOffset);
+  const endOffset = offset + PER_PAGE;
+  const currentItems = carsData.slice(offset, endOffset);
   const pageCount = Math.ceil(carsData.length / PER_PAGE);
 
   const handlePageClick = (event) => {
     const newOffset = (event.selected * PER_PAGE) % carsData.length;
-    setItemOffset(newOffset);
+    dispatch(setOffset(newOffset));
   };
 
   return (
