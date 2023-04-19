@@ -21,7 +21,7 @@ const carSlice = createSlice({
       state.currentItem = action.payload;
     },
     addItem: (state, action) => {
-      state.cars.push(action.payload);
+      state.cars.unshift(action.payload);
     },
     editItem: (state, action) => {
       const index = state.cars.findIndex(

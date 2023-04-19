@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { addItem, editItem } from "../store/carSlice";
 import { useSelector } from "react-redux";
 import { close } from "../store/modalSlice";
+import { setOffset } from "../store/paginationSlice";
 
 export const CarForm = () => {
   const currentItem = useSelector((state) => state.car.currentItem);
@@ -32,11 +33,13 @@ export const CarForm = () => {
   } = useForm();
 
   const onSubmit = () => {
-    dispatch(
-      currentItem
-        ? editItem({ uid: currentItem.uid, name, price, country })
-        : addItem({ uid: defaultUid, name, price, country })
-    );
+    if (currentItem)
+      dispatch(editItem({ uid: currentItem.uid, name, price, country }));
+    else {
+      dispatch(addItem({ uid: defaultUid, name, price, country }));
+      dispatch(setOffset(0));
+    }
+
     dispatch(close());
   };
 
