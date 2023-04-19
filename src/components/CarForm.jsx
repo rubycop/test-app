@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { CARS } from "../utils/contants";
-import { ItemContext, ModalContext } from "../context";
-import React, { useContext } from "react";
+import React from "react";
 import {
   Button,
   FormLabel,
