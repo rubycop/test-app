@@ -14,9 +14,9 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addItem, editItem } from "../store/carSlice";
 import { useSelector } from "react-redux";
+import { close } from "../store/modalSlice";
 
 export const CarForm = () => {
-  const { setOpen } = useContext(ModalContext);
   const currentItem = useSelector((state) => state.car.currentItem);
   const dispatch = useDispatch();
 
@@ -37,7 +37,7 @@ export const CarForm = () => {
         ? editItem({ uid: currentItem.uid, name, price, country })
         : addItem({ uid: defaultUid, name, price, country })
     );
-    setOpen(false);
+    dispatch(close());
   };
 
   return (

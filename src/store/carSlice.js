@@ -6,7 +6,7 @@ const initialState = {
   currentItem: null,
 };
 
-const carsSlice = createSlice({
+const carSlice = createSlice({
   name: "car",
   initialState,
   reducers: {
@@ -36,5 +36,5 @@ const carsSlice = createSlice({
 });
 
 export const { filterItemsByName, setItem, addItem, editItem, deleteItem } =
-  carsSlice.actions;
-export default carsSlice.reducer;
+  carSlice.actions;
+export default carSlice.reducer;

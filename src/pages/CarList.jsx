@@ -3,13 +3,13 @@ import React, { useContext } from "react";
 import { CarForm } from "../components/CarForm";
 import { DataTable } from "../components/data-table/DataTable";
 import { Popup } from "../components/ui";
-import { ModalContext, ThemeContext } from "../context";
+import { ThemeContext } from "../context";
 import { setItem } from "../store/carSlice";
 import { useDispatch } from "react-redux";
 import { DataTableFilter } from "../components/data-table/DataTableFilter";
+import { open } from "../store/modalSlice";
 
 export const CarList = () => {
-  const { setOpen } = useContext(ModalContext);
   const { theme, setTheme } = useContext(ThemeContext);
   const dispatch = useDispatch();
 
@@ -18,7 +18,7 @@ export const CarList = () => {
   const handleThemeChange = () => setTheme(isDarkTheme ? "light" : "dark");
   const handleModalOpen = () => {
     dispatch(setItem());
-    setOpen(true);
+    dispatch(open());
   };
 
   return (

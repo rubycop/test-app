@@ -4,17 +4,16 @@ import TableRow from "@mui/material/TableRow";
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { ModalContext } from "../../context";
 import { useDispatch } from "react-redux";
 import { deleteItem, setItem } from "../../store/carSlice";
+import { open } from "../../store/modalSlice";
 
 export const DataTableRow = ({ row }) => {
-  const { setOpen } = useContext(ModalContext);
   const dispatch = useDispatch();
 
   const handleEdit = (item) => {
     dispatch(setItem(item));
-    setOpen(true);
+    dispatch(open());
   };
 
   const handleDelete = (item) => {
